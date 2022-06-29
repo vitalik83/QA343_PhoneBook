@@ -1,59 +1,39 @@
 package tests;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
 public class LoginTests extends TestBase {
-    // success login:
-    //1.browser open
-    //2.open www
-    //3.open form
-    //4.fill form+ valid data
-    //5.sumbit login
-    //6.Assert (is login success?) logout present? PRESENT
-    //7.driver quit
-    ////////////////////////////////////////////////////////////
-//login negative:
-    //1.browser open
-    //2.open www
-    //3.open form
-    //4.fill form+ valid data
-    //5.sumbit login
-    //6.Assert (is login success?) logout present? NOT
-    //7.driver quit
 
-    @Test
-    public void successLogin() {
-
-
-        //3.open form
-        openLoginRegistrationFrom();
-        //4.fill form+ valid data
-        fillLoginRegistrationFrom("vkynitzki@mail.ru", "Vitalik83$");
-        //5.sumbit login
-        submitLogin();
-        //6.Assert (is login success?) logout present? PRESENT
+    @BeforeMethod
+    public void preCondition() {
+        if(app.getHelperUser().isLogged()){
+            app.getHelperUser().logout();
+        }
 
     }
 
 
+    @Test
+    public void loginASuccess() {
 
-    //login negative:
+        app.getHelperUser().openLoginRegistrationForm();
+        app.getHelperUser().fillLoginRegistrationForm("noa@gmail.com", "Nnoa12345$");
+        app.getHelperUser().submitLogin();
+        // 6.Assert ( is login success?)   logout present?PRESENT
+
+    }
+
     @Test
     public void loginNegativeTestsWrongEmail() {
 
+        app.getHelperUser().openLoginRegistrationForm();
+        app.getHelperUser().fillLoginRegistrationForm("noagmail.com", "Nnoa12345$");
+        app.getHelperUser().submitLogin();
+        // 6.Assert ( is login unsuccessful?)   logout present? NOT
 
-        //3.open form
-        openLoginRegistrationFrom();
-
-        //4.fill form+invalid data
-        fillLoginRegistrationFrom("vkynitzkimail.ru", "Vitalik83$");
-        // 5.submit login
-        submitLogin();
-        //6.Assert (is login unsuccessful?) logout present? NOT
-
-        //7.driver quit
     }
-
 
 
 }

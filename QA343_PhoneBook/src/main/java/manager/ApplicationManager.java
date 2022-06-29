@@ -6,19 +6,27 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 
 public class ApplicationManager {
+
     WebDriver wd;
     HelperUser helperUser;
-    public  void  init(){
+
+    public void init(){
 
         wd=new ChromeDriver();
         wd.manage().window().maximize();
         wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        wd.navigate().to("https://ilcarro-1578153671498.web.app/search");
+        wd.navigate().to("https://contacts-app.tobbymarshall815.vercel.app/");
+        helperUser=new HelperUser(wd);
+
     }
-    public  void  stop(){
+
+    public void stop(){
+
         wd.quit();
     }
-    public HelperUser getHelperUser(){
+
+
+    public HelperUser getHelperUser() {
         return helperUser;
     }
 }
